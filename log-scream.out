@@ -1,0 +1,307 @@
+Fri Apr 17 16:11:10 PDT 2020
+
+
+set fetch_code = 0
+set fetch_code = 0
+set compile_model = 1
+set compile_model = 1
+set run_model = 0
+set run_model = 0
+
+
+
+
+
+setenv CCSMTAG SCREAM-forked-github
+setenv CCSMTAG SCREAM-forked-github
+setenv CCSMROOT /compyfs/${USER}/${CCSMTAG}
+setenv CCSMROOT /compyfs/shpu881/SCREAM-forked-github
+
+
+
+
+
+setenv COMPSET FSCREAM-LR
+setenv COMPSET FSCREAM-LR
+setenv RESOLUTION ne30_ne30
+setenv RESOLUTION ne30_ne30
+setenv MRES ne30
+setenv MRES ne30
+setenv MACH compy
+setenv MACH compy
+setenv PTMP /compyfs/${USER}/bld
+setenv PTMP /compyfs/shpu881/bld
+
+setenv ntasks 800
+setenv ntasks 800
+setenv nthrds 1
+setenv nthrds 1
+
+
+
+
+setenv CASE ${MACH}_${COMPSET}_${MRES}_${CCSMTAG}_clen_1600p
+setenv CASE compy_FSCREAM-LR_ne30_SCREAM-forked-github_clen_1600p
+setenv COMCASE ${MACH}_${COMPSET}_${MRES}_${CCSMTAG}_clean_1600p
+setenv COMCASE compy_FSCREAM-LR_ne30_SCREAM-forked-github_clean_1600p
+
+setenv CASEROOT ${CCSMROOT}/cases/${CASE}
+setenv CASEROOT /compyfs/shpu881/SCREAM-forked-github/cases/compy_FSCREAM-LR_ne30_SCREAM-forked-github_clen_1600p
+setenv RUNDIR /compyfs/${USER}/csmruns/${CASE}
+setenv RUNDIR /compyfs/shpu881/csmruns/compy_FSCREAM-LR_ne30_SCREAM-forked-github_clen_1600p
+
+
+
+
+if ( $compile_model > 0 ) then
+if ( 1 > 0 ) then
+
+rm -rf ${CASEROOT}
+rm -rf /compyfs/shpu881/SCREAM-forked-github/cases/compy_FSCREAM-LR_ne30_SCREAM-forked-github_clen_1600p
+cd ${CCSMROOT}/cime/scripts
+cd /compyfs/shpu881/SCREAM-forked-github/cime/scripts
+
+./create_newcase --case ${CASEROOT} --project e3sm --mach ${MACH} --res ${RESOLUTION} --compset ${COMPSET}
+./create_newcase --case /compyfs/shpu881/SCREAM-forked-github/cases/compy_FSCREAM-LR_ne30_SCREAM-forked-github_clen_1600p --project e3sm --mach compy --res ne30_ne30 --compset FSCREAM-LR
+Compset longname is 2000_CAM5%SCREAM-LR_CLM45%SPBC_CICE%PRES_DOCN%DOM_SROF_SGLC_SWAV
+Compset specification file is /compyfs/shpu881/SCREAM-forked-github/components/cam/cime_config/config_compsets.xml
+Automatically adding SIAC to compset
+Automatically adding SESP to compset
+Compset forcing is 
+Com forcing is present day:
+ATM component is cam5 physics:Low Resolution Fortran version of SCREAM with SHOC, P3, and RRTMG.  All other aspects of this run are identical to E3SMv1
+LND component is clm4.5 physics:clm4.5 Satellite phenology:clm4.5 Satellite phenology with black carbon deposition:
+ICE component is prescribed cice:
+OCN component is DOCN   prescribed ocean mode
+ROF component is Stub river component
+GLC component is Stub glacier (land ice) component
+WAV component is Stub wave component
+IAC component is Stub iac component
+ESP component is Stub external system processing (ESP) component
+Pes     specification file is /compyfs/shpu881/SCREAM-forked-github/cime/config/e3sm/allactive/config_pesall.xml
+Machine is compy
+Pes setting: grid match    is a%ne30np4_l%ne30np4_oi%ne30np4_ 
+Pes setting: machine match is compy 
+Pes setting: grid          is a%ne30np4_l%ne30np4_oi%ne30np4_r%null_g%null_w%null_z%null_m%gx1v6 
+Pes setting: compset       is 2000_CAM5%SCREAM-LR_CLM45%SPBC_CICE%PRES_DOCN%DOM_SROF_SGLC_SWAV_SIAC_SESP 
+Pes setting: tasks       is {'NTASKS_ATM': 900, 'NTASKS_ICE': 900, 'NTASKS_CPL': 900, 'NTASKS_LND': 900, 'NTASKS_ROF': 900, 'NTASKS_OCN': 900} 
+Pes setting: threads     is {'NTHRDS_ICE': 1, 'NTHRDS_ATM': 1, 'NTHRDS_ROF': 1, 'NTHRDS_LND': 1, 'NTHRDS_OCN': 1, 'NTHRDS_CPL': 1} 
+Pes setting: rootpe      is {'ROOTPE_OCN': 0, 'ROOTPE_LND': 0, 'ROOTPE_ATM': 0, 'ROOTPE_ICE': 0, 'ROOTPE_CPL': 0, 'ROOTPE_ROF': 0} 
+Pes setting: pstrid      is {} 
+Pes other settings: {}
+Pes comments: ne30_ne30 grid on 23 nodes 40 ppn pure-MPI
+ Compset is: 2000_CAM5%SCREAM-LR_CLM45%SPBC_CICE%PRES_DOCN%DOM_SROF_SGLC_SWAV_SIAC_SESP 
+ Grid is: a%ne30np4_l%ne30np4_oi%ne30np4_r%null_g%null_w%null_z%null_m%gx1v6 
+ Components in compset are: ['cam', 'clm', 'cice', 'docn', 'srof', 'sglc', 'swav', 'siac', 'sesp', 'drv'] 
+No charge_account info available, using value from PROJECT
+e3sm model version found: 5b76405
+Batch_system_type is slurm
+job is case.run USER_REQUESTED_WALLTIME None USER_REQUESTED_QUEUE None
+job is case.st_archive USER_REQUESTED_WALLTIME None USER_REQUESTED_QUEUE None
+ Creating Case directory /compyfs/shpu881/SCREAM-forked-github/cases/compy_FSCREAM-LR_ne30_SCREAM-forked-github_clen_1600p
+
+
+
+
+
+cd ${CASEROOT}
+cd /compyfs/shpu881/SCREAM-forked-github/cases/compy_FSCREAM-LR_ne30_SCREAM-forked-github_clen_1600p
+
+./xmlchange -file env_run.xml -id RUNDIR -val ${RUNDIR}
+./xmlchange -file env_run.xml -id RUNDIR -val /compyfs/shpu881/csmruns/compy_FSCREAM-LR_ne30_SCREAM-forked-github_clen_1600p
+setting case file to env_run.xml
+
+./xmlchange -file env_mach_pes.xml -id NTASKS_ATM -val ${ntasks}
+./xmlchange -file env_mach_pes.xml -id NTASKS_ATM -val 800
+setting case file to env_mach_pes.xml
+./xmlchange -file env_mach_pes.xml -id NTHRDS_ATM -val ${nthrds}
+./xmlchange -file env_mach_pes.xml -id NTHRDS_ATM -val 1
+setting case file to env_mach_pes.xml
+./xmlchange -file env_mach_pes.xml -id ROOTPE_ATM -val '0'
+./xmlchange -file env_mach_pes.xml -id ROOTPE_ATM -val 0
+setting case file to env_mach_pes.xml
+
+./xmlchange -file env_mach_pes.xml -id NTASKS_LND -val ${ntasks}
+./xmlchange -file env_mach_pes.xml -id NTASKS_LND -val 800
+setting case file to env_mach_pes.xml
+./xmlchange -file env_mach_pes.xml -id NTHRDS_LND -val ${nthrds}
+./xmlchange -file env_mach_pes.xml -id NTHRDS_LND -val 1
+setting case file to env_mach_pes.xml
+./xmlchange -file env_mach_pes.xml -id ROOTPE_LND -val '0'
+./xmlchange -file env_mach_pes.xml -id ROOTPE_LND -val 0
+setting case file to env_mach_pes.xml
+
+./xmlchange -file env_mach_pes.xml -id NTASKS_ROF -val ${ntasks}
+./xmlchange -file env_mach_pes.xml -id NTASKS_ROF -val 800
+setting case file to env_mach_pes.xml
+./xmlchange -file env_mach_pes.xml -id NTHRDS_ROF -val ${nthrds}
+./xmlchange -file env_mach_pes.xml -id NTHRDS_ROF -val 1
+setting case file to env_mach_pes.xml
+./xmlchange -file env_mach_pes.xml -id ROOTPE_ROF -val '0'
+./xmlchange -file env_mach_pes.xml -id ROOTPE_ROF -val 0
+setting case file to env_mach_pes.xml
+
+./xmlchange -file env_mach_pes.xml -id NTASKS_ICE -val ${ntasks}
+./xmlchange -file env_mach_pes.xml -id NTASKS_ICE -val 800
+setting case file to env_mach_pes.xml
+./xmlchange -file env_mach_pes.xml -id NTHRDS_ICE -val ${nthrds}
+./xmlchange -file env_mach_pes.xml -id NTHRDS_ICE -val 1
+setting case file to env_mach_pes.xml
+./xmlchange -file env_mach_pes.xml -id ROOTPE_ICE -val '0'
+./xmlchange -file env_mach_pes.xml -id ROOTPE_ICE -val 0
+setting case file to env_mach_pes.xml
+
+./xmlchange -file env_mach_pes.xml -id NTASKS_OCN -val ${ntasks}
+./xmlchange -file env_mach_pes.xml -id NTASKS_OCN -val 800
+setting case file to env_mach_pes.xml
+./xmlchange -file env_mach_pes.xml -id NTHRDS_OCN -val ${nthrds}
+./xmlchange -file env_mach_pes.xml -id NTHRDS_OCN -val 1
+setting case file to env_mach_pes.xml
+./xmlchange -file env_mach_pes.xml -id ROOTPE_OCN -val '0'
+./xmlchange -file env_mach_pes.xml -id ROOTPE_OCN -val 0
+setting case file to env_mach_pes.xml
+
+./xmlchange -file env_mach_pes.xml -id NTASKS_GLC -val ${ntasks}
+./xmlchange -file env_mach_pes.xml -id NTASKS_GLC -val 800
+setting case file to env_mach_pes.xml
+./xmlchange -file env_mach_pes.xml -id NTHRDS_GLC -val ${nthrds}
+./xmlchange -file env_mach_pes.xml -id NTHRDS_GLC -val 1
+setting case file to env_mach_pes.xml
+./xmlchange -file env_mach_pes.xml -id ROOTPE_GLC -val '0'
+./xmlchange -file env_mach_pes.xml -id ROOTPE_GLC -val 0
+setting case file to env_mach_pes.xml
+
+./xmlchange -file env_mach_pes.xml -id NTASKS_WAV -val ${ntasks}
+./xmlchange -file env_mach_pes.xml -id NTASKS_WAV -val 800
+setting case file to env_mach_pes.xml
+./xmlchange -file env_mach_pes.xml -id NTHRDS_WAV -val ${nthrds}
+./xmlchange -file env_mach_pes.xml -id NTHRDS_WAV -val 1
+setting case file to env_mach_pes.xml
+./xmlchange -file env_mach_pes.xml -id ROOTPE_WAV -val '0'
+./xmlchange -file env_mach_pes.xml -id ROOTPE_WAV -val 0
+setting case file to env_mach_pes.xml
+
+./xmlchange -file env_mach_pes.xml -id NTASKS_CPL -val ${ntasks}
+./xmlchange -file env_mach_pes.xml -id NTASKS_CPL -val 800
+setting case file to env_mach_pes.xml
+./xmlchange -file env_mach_pes.xml -id NTHRDS_CPL -val ${nthrds}
+./xmlchange -file env_mach_pes.xml -id NTHRDS_CPL -val 1
+setting case file to env_mach_pes.xml
+./xmlchange -file env_mach_pes.xml -id ROOTPE_CPL -val '0'
+./xmlchange -file env_mach_pes.xml -id ROOTPE_CPL -val 0
+setting case file to env_mach_pes.xml
+
+
+./case.setup
+./case.setup
+/compyfs/shpu881/SCREAM-forked-github/cases/compy_FSCREAM-LR_ne30_SCREAM-forked-github_clen_1600p/env_mach_specific.xml already exists, delete to replace
+/compyfs/shpu881/SCREAM-forked-github/cases/compy_FSCREAM-LR_ne30_SCREAM-forked-github_clen_1600p/env_mach_specific.xml already exists, delete to replace
+job is case.run USER_REQUESTED_WALLTIME None USER_REQUESTED_QUEUE None
+Creating batch scripts
+Writing case.run script from input template /compyfs/shpu881/SCREAM-forked-github/cime/config/e3sm/machines/template.case.run
+Creating file .case.run
+Writing case.st_archive script from input template /compyfs/shpu881/SCREAM-forked-github/cime/config/e3sm/machines/template.st_archive
+Creating file case.st_archive
+Creating file .case.run.sh
+Creating user_nl_xxx files for components and cpl
+If an old case build already exists, might want to run 'case.build --clean' before building
+Generating component namelists as part of setup
+Creating component namelists
+  2020-04-17 16:12:04 atm
+   Calling /compyfs/shpu881/SCREAM-forked-github/components/cam/cime_config/buildnml
+  2020-04-17 16:12:06 lnd
+   Calling /compyfs/shpu881/SCREAM-forked-github/components/clm/cime_config/buildnml
+  2020-04-17 16:12:16 ice
+   Calling /compyfs/shpu881/SCREAM-forked-github/components/cice/cime_config/buildnml
+  2020-04-17 16:12:26 ocn
+   Calling /compyfs/shpu881/SCREAM-forked-github/cime/src/components/data_comps/docn/cime_config/buildnml
+  2020-04-17 16:12:26 rof
+   Calling /compyfs/shpu881/SCREAM-forked-github/cime/src/components/stub_comps/srof/cime_config/buildnml
+  2020-04-17 16:12:26 glc
+   Calling /compyfs/shpu881/SCREAM-forked-github/cime/src/components/stub_comps/sglc/cime_config/buildnml
+  2020-04-17 16:12:26 wav
+   Calling /compyfs/shpu881/SCREAM-forked-github/cime/src/components/stub_comps/swav/cime_config/buildnml
+  2020-04-17 16:12:26 iac
+   Running /compyfs/shpu881/SCREAM-forked-github/cime/src/components/stub_comps/siac/cime_config/buildnml 
+  2020-04-17 16:12:26 esp
+   Calling /compyfs/shpu881/SCREAM-forked-github/cime/src/components/stub_comps/sesp/cime_config/buildnml
+  2020-04-17 16:12:27 cpl
+   Calling /compyfs/shpu881/SCREAM-forked-github/cime/src/drivers/mct/cime_config/buildnml
+Finished creating component namelists
+You can now run './preview_run' to get more info on how your case will be run
+
+
+
+
+cd ${CASEROOT}
+cd /compyfs/shpu881/SCREAM-forked-github/cases/compy_FSCREAM-LR_ne30_SCREAM-forked-github_clen_1600p
+
+
+
+
+./xmlchange -file env_build.xml -id DEBUG -append -val 'FALSE'
+./xmlchange -file env_build.xml -id DEBUG -append -val FALSE
+setting case file to env_build.xml
+ERROR: Entry DEBUG was listed as type logical but had val 'False FALSE' instead of TRUE or FALSE
+./xmlchange -file env_build.xml -id CAM_CONFIG_OPTS -append -val ' -cosp'
+./xmlchange -file env_build.xml -id CAM_CONFIG_OPTS -append -val  -cosp
+setting case file to env_build.xml
+
+
+
+cd ${CASEROOT}
+cd /compyfs/shpu881/SCREAM-forked-github/cases/compy_FSCREAM-LR_ne30_SCREAM-forked-github_clen_1600p
+./case.build --clean-all
+./case.build --clean-all
+cleaning directory /compyfs/shpu881/e3sm_scratch/compy_FSCREAM-LR_ne30_SCREAM-forked-github_clen_1600p/bld
+./case.build
+./case.build
+Building case in directory /compyfs/shpu881/SCREAM-forked-github/cases/compy_FSCREAM-LR_ne30_SCREAM-forked-github_clen_1600p
+sharedlib_only is False
+model_only is False
+Generating component namelists as part of build
+Creating component namelists
+  2020-04-17 16:12:31 atm
+   Calling /compyfs/shpu881/SCREAM-forked-github/components/cam/cime_config/buildnml
+  2020-04-17 16:12:31 lnd
+   Calling /compyfs/shpu881/SCREAM-forked-github/components/clm/cime_config/buildnml
+  2020-04-17 16:12:32 ice
+   Calling /compyfs/shpu881/SCREAM-forked-github/components/cice/cime_config/buildnml
+  2020-04-17 16:12:32 ocn
+   Calling /compyfs/shpu881/SCREAM-forked-github/cime/src/components/data_comps/docn/cime_config/buildnml
+  2020-04-17 16:12:33 rof
+   Calling /compyfs/shpu881/SCREAM-forked-github/cime/src/components/stub_comps/srof/cime_config/buildnml
+  2020-04-17 16:12:33 glc
+   Calling /compyfs/shpu881/SCREAM-forked-github/cime/src/components/stub_comps/sglc/cime_config/buildnml
+  2020-04-17 16:12:33 wav
+   Calling /compyfs/shpu881/SCREAM-forked-github/cime/src/components/stub_comps/swav/cime_config/buildnml
+  2020-04-17 16:12:33 iac
+   Running /compyfs/shpu881/SCREAM-forked-github/cime/src/components/stub_comps/siac/cime_config/buildnml 
+  2020-04-17 16:12:33 esp
+   Calling /compyfs/shpu881/SCREAM-forked-github/cime/src/components/stub_comps/sesp/cime_config/buildnml
+  2020-04-17 16:12:33 cpl
+   Calling /compyfs/shpu881/SCREAM-forked-github/cime/src/drivers/mct/cime_config/buildnml
+Finished creating component namelists
+Building gptl with output to file /compyfs/shpu881/e3sm_scratch/compy_FSCREAM-LR_ne30_SCREAM-forked-github_clen_1600p/bld/gptl.bldlog.200417-161231
+   Calling /compyfs/shpu881/SCREAM-forked-github/cime/src/build_scripts/buildlib.gptl
+Building mct with output to file /compyfs/shpu881/e3sm_scratch/compy_FSCREAM-LR_ne30_SCREAM-forked-github_clen_1600p/bld/mct.bldlog.200417-161231
+   Calling /compyfs/shpu881/SCREAM-forked-github/cime/src/build_scripts/buildlib.mct
+Building pio with output to file /compyfs/shpu881/e3sm_scratch/compy_FSCREAM-LR_ne30_SCREAM-forked-github_clen_1600p/bld/pio.bldlog.200417-161231
+   Calling /compyfs/shpu881/SCREAM-forked-github/cime/src/build_scripts/buildlib.pio
+Component pio build complete with 2 warnings
+Building csm_share with output to file /compyfs/shpu881/e3sm_scratch/compy_FSCREAM-LR_ne30_SCREAM-forked-github_clen_1600p/bld/csm_share.bldlog.200417-161231
+   Calling /compyfs/shpu881/SCREAM-forked-github/cime/src/build_scripts/buildlib.csm_share
+Component csm_share build complete with 20 warnings
+Time spent not building: 3.471148 sec
+Time spent building: 715.684920 sec
+MODEL BUILD HAS FINISHED SUCCESSFULLY
+
+endif
+endif
+
+
+
+
+if ( $run_model > 0 ) then
+if ( 0 > 0 ) then
+

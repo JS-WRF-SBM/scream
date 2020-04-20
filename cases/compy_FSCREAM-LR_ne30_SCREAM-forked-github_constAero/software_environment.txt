@@ -1,0 +1,192 @@
+Currently Loaded Modulefiles:
+ 1) cmake/3.11.4   3) intelmpi/2019u4   5) pnetcdf/1.9.0(default)  
+ 2) intel/19.0.5   4) netcdf/4.6.3      6) mkl/2019u5
+
+MKLROOT=/share/apps/intel/2019u5/compilers_and_libraries_2019.5.281/linux/mkl
+REMOTEHOST=71-94-167-128.dhcp.knwc.wa.charter.com
+CMAKE=/share/apps/cmake/3.11.4
+MANPATH=/share/apps/pnetcdf/1.9.0/intel/19.0.5/intelmpi/2019u4/share:/share/apps/netcdf/4.6.3/intel/19.0.5/share:/share/apps/intel/2019u4/compilers_and_libraries_2019.4.243/linux/mpi/man:/share/apps/modules/share/man:/usr/local/share/man:/usr/share/man/overrides:/usr/share/man:/opt/ganglia/man:/opt/pdsh/man:/opt/rocks/man
+PDSHROOT=/opt/pdsh
+XDG_SESSION_ID=20598
+NETCDF_INCLUDE=/share/apps/netcdf/4.6.3/intel/19.0.5/include
+HOSTNAME=compy-e.pnl.gov
+_LMFILES__modshare=/share/apps/modules/modulefiles/development/compilers/intel/19.0.5:1:/share/apps/modules/modulefiles/development/mpi/intelmpi/2019u4:1:/share/apps/modules/modulefiles/development/mlib/mkl/2019u5:1:/share/apps/modules/modulefiles/development/tools/netcdf/4.6.3:1:/share/apps/modules/modulefiles/development/tools/cmake/3.11.4:1:/share/apps/modules/modulefiles/development/tools/pnetcdf/1.9.0:1
+INTEL_LICENSE_FILE=/share/apps/intel/2019u5/compilers_and_libraries_2019.5.281/linux/licenses:/opt/intel/licenses:/root/intel/licenses
+IPPROOT=/share/apps/intel/2019u5/compilers_and_libraries_2019.5.281/linux/ipp
+MODULEPATH_modshare=/share/apps/modules/modulefiles/development/mpi:1:/share/apps/modules/modulefiles/development/compilers:1:/share/apps/modules/modulefiles/environment:1:/share/apps/modules/modulefiles/development/mlib:1:/share/apps/modules/modulefiles/development/tools:1
+HOST=compy-e.pnl.gov
+SHELL=/bin/bash
+TERM=vt100
+MODULES_CMD=/share/apps/modules/libexec/modulecmd.tcl
+HISTSIZE=1000
+PNETCDF_HOME=/share/apps/pnetcdf/1.9.0/intel/19.0.5/intelmpi/2019u4
+SSH_CLIENT=71.94.167.128 34704 22
+LIBRARY_PATH_modshare=/share/apps/intel/2019u5/compilers_and_libraries_2019.5.281/linux/daal/lib/intel64_lin:1:/share/apps/intel/2019u5/compilers_and_libraries_2019.5.281/linux/daal/../tbb/lib/intel64_lin/gcc4.4:1:/share/apps/intel/2019u5/compilers_and_libraries_2019.5.281/linux/ipp/lib/intel64:1:/share/apps/intel/2019u5/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:2:/share/apps/intel/2019u5/compilers_and_libraries_2019.5.281/linux/tbb/lib/intel64/gcc4.7:1:/share/apps/intel/2019u5/compilers_and_libraries_2019.5.281/linux/mkl/lib/intel64_lin:2:/share/apps/intel/2019u5/compilers_and_libraries_2019.5.281/linux/tbb/lib/intel64_lin/gcc4.7:1:/share/apps/intel/2019u4/compilers_and_libraries_2019.4.243/linux/mpi/intel64/libfabric/lib:1
+LIBRARY_PATH=/share/apps/intel/2019u5/compilers_and_libraries_2019.5.281/linux/tbb/lib/intel64_lin/gcc4.7:/share/apps/intel/2019u4/compilers_and_libraries_2019.4.243/linux/mpi/intel64/libfabric/lib:/share/apps/intel/2019u5/compilers_and_libraries_2019.5.281/linux/ipp/lib/intel64:/share/apps/intel/2019u5/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/share/apps/intel/2019u5/compilers_and_libraries_2019.5.281/linux/mkl/lib/intel64_lin:/share/apps/intel/2019u5/compilers_and_libraries_2019.5.281/linux/tbb/lib/intel64/gcc4.7:/share/apps/intel/2019u5/compilers_and_libraries_2019.5.281/linux/tbb/lib/intel64/gcc4.7:/share/apps/intel/2019u5/compilers_and_libraries_2019.5.281/linux/daal/lib/intel64_lin:/share/apps/intel/2019u5/compilers_and_libraries_2019.5.281/linux/daal/../tbb/lib/intel64_lin/gcc4.4
+PYTHONUNBUFFERED=1
+PNETCDF_ROOT=/share/apps/pnetcdf/1.9.0/intel/19.0.5/intelmpi/2019u4
+MODULES_USE_COMPAT_VERSION=0
+CCSMROOT=/compyfs/shpu881/SCREAM-forked-github
+SSH_TTY=/dev/pts/37
+ROCKSROOT=/opt/rocks/share/devel
+ANT_HOME=/opt/rocks
+QT_GRAPHICSSYSTEM_CHECKED=1
+GROUP=users
+USER=shpu881
+PNETCDF_LIBRARIES=-L/share/apps/pnetcdf/1.9.0/intel/19.0.5/intelmpi/2019u4/lib -lpnetcdf
+LD_LIBRARY_PATH=/share/apps/intel/2019u5/compilers_and_libraries_2019.5.281/linux/tbb/lib/intel64_lin/gcc4.7:/share/apps/pnetcdf/1.9.0/intel/19.0.5/intelmpi/2019u4/lib:/share/apps/netcdf/4.6.3/intel/19.0.5/lib:/share/apps/hdf5/1.10.5/serial/lib:/share/apps/intel/2019u4/compilers_and_libraries_2019.4.243/linux/mpi/intel64/libfabric/lib:/share/apps/intel/2019u4/compilers_and_libraries_2019.4.243/linux/mpi/intel64/lib/release:/share/apps/intel/2019u4/compilers_and_libraries_2019.4.243/linux/mpi/intel64/lib:/share/apps/intel/2019u5/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/share/apps/intel/2019u5/comepilers_and_libraries_2019.5.281/linux/mpi/intel64/libfabric/lib:/share/apps/intel/2019u5/compilers_and_libraries_2019.5.281/linux/mpi/intel64/lib/release:/share/apps/intel/2019u5/compilers_and_libraries_2019.5.281/linux/mpi/intel64/lib:/share/apps/intel/2019u5/compilers_and_libraries_2019.5.281/linux/ipp/lib/intel64:/share/apps/intel/2019u5/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/share/apps/intel/2019u5/compilers_and_libraries_2019.5.281/linux/mkl/lib/intel64_lin:/share/apps/intel/2019u5/compilers_and_libraries_2019.5.281/linux/tbb/lib/intel64/gcc4.7:/share/apps/intel/2019u5/compilers_and_libraries_2019.5.281/linux/tbb/lib/intel64/gcc4.7:/share/apps/intel/2019u5/compilers_and_libraries_2019.5.281/linux/daal/lib/intel64_lin:/share/apps/intel/2019u5/compilers_and_libraries_2019.5.281/linux/daal/../tbb/lib/intel64_lin/gcc4.4
+LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=01;05;37;41:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.axv=01;35:*.anx=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=01;36:*.au=01;36:*.flac=01;36:*.mid=01;36:*.midi=01;36:*.mka=01;36:*.mp3=01;36:*.mpc=01;36:*.ogg=01;36:*.ra=01;36:*.wav=01;36:*.axa=01;36:*.oga=01;36:*.spx=01;36:*.xspf=01;36:
+PSTLROOT=/share/apps/intel/2019u5/compilers_and_libraries_2019.5.281/linux/pstl
+CASEROOT=/compyfs/shpu881/SCREAM-forked-github/cases/compy_FSCREAM-LR_ne30_SCREAM-forked-github_constAero
+ntasks=800
+FI_PROVIDER_PATH=/share/apps/intel/2019u4/compilers_and_libraries_2019.4.243/linux/mpi/intel64/libfabric/lib/prov
+MODULES_LMALTNAME=pnetcdf/1.9.0&pnetcdf/default&pnetcdf
+ENV=/share/apps/modules/init/profile.sh
+ROCKS_ROOT=/opt/rocks
+CPATH=/share/apps/intel/2019u5/compilers_and_libraries_2019.5.281/linux/mkl/include
+HOSTTYPE=x86_64-linux
+NETCDF_HOME=/share/apps/netcdf/4.6.3/intel/19.0.5/
+MACH=compy
+SYSTEM_NAME=compy
+NLSPATH=/share/apps/intel/2019u5/compilers_and_libraries_2019.5.281/linux/mkl/lib/intel64_lin/locale/%l_%t/%N
+IBV_FORK_SAFE=1
+NETCDF_ROOT=/share/apps/netcdf/4.6.3/intel/19.0.5
+MRES=ne30
+PATH=/share/apps/pnetcdf/1.9.0/intel/19.0.5/intelmpi/2019u4/bin:/share/apps/netcdf/4.6.3/intel/19.0.5/bin:/share/apps/hdf5/1.10.5/serial/bin:/share/apps/intel/2019u4/compilers_and_libraries_2019.4.243/linux/mpi/intel64/libfabric/bin:/share/apps/intel/2019u4/compilers_and_libraries_2019.4.243/linux/mpi/intel64/bin:/share/apps/intel/2019u5/compilers_and_libraries_2019.5.281/linux/bin/intel64:/share/apps/cmake/3.11.4/bin:/share/apps/modules/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/opt/ganglia/bin:/opt/ganglia/sbin:/opt/pdsh/bin:/opt/rocks/bin:/opt/rocks/sbin:/qfs/people/shpu881/bin
+MAIL=/var/spool/mail/shpu881
+COMPSET=FSCREAM-LR
+TBBROOT=/share/apps/intel/2019u5/compilers_and_libraries_2019.5.281/linux/tbb
+F90=ifort
+PWD=/compyfs/shpu881/SCREAM-forked-github/cases/compy_FSCREAM-LR_ne30_SCREAM-forked-github_constAero
+MKL_PATH=/share/apps/intel/2019u5/compilers_and_libraries_2019.5.281/linux/mkl
+NETCDF_LIBRARIES=-L/share/apps/netcdf/4.6.3/intel/19.0.5/lib -L/share/apps/hdf5/1.10.5/serial/lib -lnetcdff -lnetcdf -lhdf5hl_fortran -lhdf5_hl -lhdf5_fortran -lhdf5
+_LMFILES_=/share/apps/modules/modulefiles/development/tools/cmake/3.11.4:/share/apps/modules/modulefiles/development/compilers/intel/19.0.5:/share/apps/modules/modulefiles/development/mpi/intelmpi/2019u4:/share/apps/modules/modulefiles/development/tools/netcdf/4.6.3:/share/apps/modules/modulefiles/development/tools/pnetcdf/1.9.0:/share/apps/modules/modulefiles/development/mlib/mkl/2019u5
+JAVA_HOME=/usr/java/latest
+PTMP=/compyfs/shpu881/bld
+CASE=compy_FSCREAM-LR_ne30_SCREAM-forked-github_constAero
+LANG=en_US.UTF-8
+MODULEPATH=/share/apps/modules/modulefiles/environment:/share/apps/modules/modulefiles/development/mpi:/share/apps/modules/modulefiles/development/mlib:/share/apps/modules/modulefiles/development/compilers:/share/apps/modules/modulefiles/development/tools
+NETCDF_LIB=/share/apps/netcdf/4.6.3/intel/19.0.5/lib
+CIMEROOT=/compyfs/shpu881/SCREAM-forked-github/cime/scripts/Tools/../..
+LOADEDMODULES=cmake/3.11.4:intel/19.0.5:intelmpi/2019u4:netcdf/4.6.3:pnetcdf/1.9.0:mkl/2019u5
+F77=ifort
+PNNL_MPI=intelmpi
+DAALROOT=/share/apps/intel/2019u5/compilers_and_libraries_2019.5.281/linux/daal
+CCSMTAG=SCREAM-forked-github
+CXX=icpc
+nthrds=1
+HISTCONTROL=ignoredups
+SSH_ASKPASS=/usr/libexec/openssh/gnome-ssh-askpass
+I_MPI_ADJUST_ALLREDUCE=1
+RUNDIR=/compyfs/shpu881/csmruns/compy_FSCREAM-LR_ne30_SCREAM-forked-github_constAero
+PATH_modshare=/share/apps/cmake/3.11.4/bin:1:/usr/bin:1:/share/apps/intel/2019u5/compilers_and_libraries_2019.5.281/linux/bin/intel64:1:/usr/local/bin:1:/share/apps/intel/2019u4/compilers_and_libraries_2019.4.243/linux/mpi/intel64/bin:1:/opt/ganglia/bin:1:/share/apps/modules/bin:1:/opt/rocks/sbin:1:/share/apps/pnetcdf/1.9.0/intel/19.0.5/intelmpi/2019u4/bin:1:/opt/ganglia/sbin:1:/opt/pdsh/bin:1:/share/apps/intel/2019u4/compilers_and_libraries_2019.4.243/linux/mpi/intel64/libfabric/bin:1:/opt/rocks/bin:1:/usr/sbin:1:/share/apps/hdf5/1.10.5/serial/bin:1:/share/apps/netcdf/4.6.3/intel/19.0.5/bin:1:/qfs/people/shpu881/bin:1:/usr/local/sbin:1
+HOME=/qfs/people/shpu881
+SHLVL=3
+OSTYPE=linux
+PNNL_MPI_VERSION=2019u4
+ROLLSROOT=/opt/rocks/share/devel/src/roll
+FC=ifort
+PNNL_COMPILER_VERSION=19.0.5
+MANPATH_modshare=/usr/local/share/man:1:/usr/share/man/overrides:1:/share/apps/pnetcdf/1.9.0/intel/19.0.5/intelmpi/2019u4/share:1:/share/apps/intel/2019u4/compilers_and_libraries_2019.4.243/linux/mpi/man:1:/share/apps/modules/share/man:1:/usr/share/man:1:/opt/rocks/man:1:/share/apps/netcdf/4.6.3/intel/19.0.5/share:1:/opt/ganglia/man:1:/opt/pdsh/man:1
+VENDOR=unknown
+BASH_ENV=/share/apps/modules/init/bash
+PNETCDF_INCLUDE=/share/apps/pnetcdf/1.9.0/intel/19.0.5/intelmpi/2019u4/include
+MPI_ROOT=/share/apps/intel/2019u4/compilers_and_libraries_2019.4.243/linux/mpi
+COMCASE=compy_FSCREAM-LR_ne30_SCREAM-forked-github_constAero
+MACHTYPE=x86_64
+LOGNAME=shpu881
+LD_LIBRARY_PATH_modshare=/share/apps/intel/2019u5/compilers_and_libraries_2019.5.281/linux/daal/../tbb/lib/intel64_lin/gcc4.4:1:/share/apps/intel/2019u5/compilers_and_libraries_2019.5.281/linux/ipp/lib/intel64:1:/share/apps/intel/2019u4/compilers_and_libraries_2019.4.243/linux/mpi/intel64/lib/release:1:/share/apps/intel/2019u4/compilers_and_libraries_2019.4.243/linux/mpi/intel64/lib:1:/share/apps/intel/2019u5/compilers_and_libraries_2019.5.281/linux/tbb/lib/intel64/gcc4.7:1:/share/apps/pnetcdf/1.9.0/intel/19.0.5/intelmpi/2019u4/lib:1:/share/apps/intel/2019u5/compilers_and_libraries_2019.5.281/linux/mkl/lib/intel64_lin:2:/share/apps/intel/2019u5/compilers_and_libraries_2019.5.281/linux/tbb/lib/intel64_lin/gcc4.7:1:/share/apps/intel/2019u4/compilers_and_libraries_2019.4.243/linux/mpi/intel64/libfabric/lib:1:/share/apps/intel/2019u5/comepilers_and_libraries_2019.5.281/linux/mpi/intel64/libfabric/lib:1:/share/apps/hdf5/1.10.5/serial/lib:1:/share/apps/netcdf/4.6.3/intel/19.0.5/lib:1:/share/apps/intel/2019u5/compilers_and_libraries_2019.5.281/linux/daal/lib/intel64_lin:1:/share/apps/intel/2019u5/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:2:/share/apps/intel/2019u5/compilers_and_libraries_2019.5.281/linux/mpi/intel64/lib:1:/share/apps/intel/2019u5/compilers_and_libraries_2019.5.281/linux/mpi/intel64/lib/release:1
+PNNL_COMPILER=intel
+CLASSPATH=/share/apps/intel/2019u4/compilers_and_libraries_2019.4.243/linux/mpi/intel64/lib/mpi.jar
+MODULES_LMALTNAME_modshare=pnetcdf/1.9.0&pnetcdf/default&pnetcdf:1
+SSH_CONNECTION=71.94.167.128 34704 130.20.68.94 22
+XDG_DATA_DIRS=/qfs/people/shpu881/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share
+PNETCDF_LIB=/share/apps/pnetcdf/1.9.0/intel/19.0.5/intelmpi/2019u4/lib
+RESOLUTION=ne30_ne30
+MODULESHOME=/share/apps/modules
+PKG_CONFIG_PATH=/share/apps/intel/2019u5/compilers_and_libraries_2019.5.281/linux/mkl/bin/pkgconfig
+OMP_NUM_THREADS=1
+LESSOPEN=||/usr/bin/lesspipe.sh %s
+LOADEDMODULES_modshare=netcdf/4.6.3:1:mkl/2019u5:1:cmake/3.11.4:1:pnetcdf/1.9.0:1:intel/19.0.5:1:intelmpi/2019u4:1
+CC=icc
+XDG_RUNTIME_DIR=/run/user/270082
+I_MPI_ROOT=/share/apps/intel/2019u4/compilers_and_libraries_2019.4.243/linux/mpi
+BASH_FUNC_module()=() {  _module_raw "$@" 2>&1
+}
+BASH_FUNC_switchml()=() {  typeset swfound=1;
+ if [ "${MODULES_USE_COMPAT_VERSION:-0}" = '1' ]; then
+ typeset swname='main';
+ if [ -e /share/apps/modules/libexec/modulecmd.tcl ]; then
+ typeset swfound=0;
+ unset MODULES_USE_COMPAT_VERSION;
+ fi;
+ else
+ typeset swname='compatibility';
+ if [ -e /share/apps/modules/libexec/modulecmd-compat ]; then
+ typeset swfound=0;
+ MODULES_USE_COMPAT_VERSION=1;
+ export MODULES_USE_COMPAT_VERSION;
+ fi;
+ fi;
+ if [ $swfound -eq 0 ]; then
+ echo "Switching to Modules $swname version";
+ source /share/apps/modules/init/bash;
+ else
+ echo "Cannot switch to Modules $swname version, command not found";
+ return 1;
+ fi
+}
+BASH_FUNC__module_raw()=() {  unset _mlshdbg;
+ if [ "${MODULES_SILENT_SHELL_DEBUG:-0}" = '1' ]; then
+ case "$-" in 
+ *v*x*)
+ set +vx;
+ _mlshdbg='vx'
+ ;;
+ *v*)
+ set +v;
+ _mlshdbg='v'
+ ;;
+ *x*)
+ set +x;
+ _mlshdbg='x'
+ ;;
+ *)
+ _mlshdbg=''
+ ;;
+ esac;
+ fi;
+ unset _mlre _mlIFS;
+ if [ -n "${IFS+x}" ]; then
+ _mlIFS=$IFS;
+ fi;
+ IFS=' ';
+ for _mlv in ${MODULES_RUN_QUARANTINE:-};
+ do
+ if [ "${_mlv}" = "${_mlv##*[!A-Za-z0-9_]}" -a "${_mlv}" = "${_mlv#[0-9]}" ]; then
+ if [ -n "`eval 'echo ${'$_mlv'+x}'`" ]; then
+ _mlre="${_mlre:-}${_mlv}_modquar='`eval 'echo ${'$_mlv'}'`' ";
+ fi;
+ _mlrv="MODULES_RUNENV_${_mlv}";
+ _mlre="${_mlre:-}${_mlv}='`eval 'echo ${'$_mlrv':-}'`' ";
+ fi;
+ done;
+ if [ -n "${_mlre:-}" ]; then
+ eval `eval ${_mlre}/usr/bin/tclsh /share/apps/modules/libexec/modulecmd.tcl bash '"$@"'`;
+ else
+ eval `/usr/bin/tclsh /share/apps/modules/libexec/modulecmd.tcl bash "$@"`;
+ fi;
+ _mlstatus=$?;
+ if [ -n "${_mlIFS+x}" ]; then
+ IFS=$_mlIFS;
+ else
+ unset IFS;
+ fi;
+ unset _mlre _mlv _mlrv _mlIFS;
+ if [ -n "${_mlshdbg:-}" ]; then
+ set -$_mlshdbg;
+ fi;
+ unset _mlshdbg;
+ return $_mlstatus
+}
+_=/usr/bin/env

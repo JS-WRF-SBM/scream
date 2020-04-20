@@ -1,0 +1,13 @@
+&modelio
+  diri = "/compyfs/shpu881/e3sm_scratch/compy_FSCREAM-LR_ne30_SCREAM-forked-github_constAero/bld/lnd"
+  diro = "/compyfs/shpu881/csmruns/compy_FSCREAM-LR_ne30_SCREAM-forked-github_constAero"
+  logfile = "lnd.log.200419-143701"
+/
+&pio_inparm
+  pio_netcdf_format = "64bit_offset"
+  pio_numiotasks = -99
+  pio_rearranger = 1
+  pio_root = 0
+  pio_stride = 40
+  pio_typename = "pnetcdf"
+/

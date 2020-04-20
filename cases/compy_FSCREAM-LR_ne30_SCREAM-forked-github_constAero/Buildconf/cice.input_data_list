@@ -1,0 +1,5 @@
+fsnowoptics = /compyfs/inputdata/lnd/clm2/snicardata/snicar_optics_5bnd_mam_c160322.nc
+grid_file = /compyfs/inputdata/share/domains/domain.ocn.ne30np4_gx1v6_110217.nc
+kmt_file = /compyfs/inputdata/share/domains/domain.ocn.ne30np4_gx1v6_110217.nc
+stream_fldfilename = /compyfs/inputdata/atm/cam/sst/sst_HadOIBl_bc_1x1_clim_c101029.nc
+stream_domfilename = /compyfs/inputdata/ocn/docn7/domain.ocn.1x1.111007.nc

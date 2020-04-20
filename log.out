@@ -1,0 +1,34 @@
+Sun Apr 19 11:14:49 PDT 2020
+Compset longname is 2000_CAM5%SCREAM-LR_CLM45%SPBC_CICE%PRES_DOCN%DOM_SROF_SGLC_SWAV
+Compset specification file is /compyfs/shpu881/SCREAM-forked-github/components/cam/cime_config/config_compsets.xml
+Automatically adding SIAC to compset
+Automatically adding SESP to compset
+Compset forcing is 
+Com forcing is present day:
+ATM component is cam5 physics:Low Resolution Fortran version of SCREAM with SHOC, P3, and RRTMG.  All other aspects of this run are identical to E3SMv1
+LND component is clm4.5 physics:clm4.5 Satellite phenology:clm4.5 Satellite phenology with black carbon deposition:
+ICE component is prescribed cice:
+OCN component is DOCN   prescribed ocean mode
+ROF component is Stub river component
+GLC component is Stub glacier (land ice) component
+WAV component is Stub wave component
+IAC component is Stub iac component
+ESP component is Stub external system processing (ESP) component
+Pes     specification file is /compyfs/shpu881/SCREAM-forked-github/cime/config/e3sm/allactive/config_pesall.xml
+Machine is compy
+Pes setting: grid match    is a%ne30np4_l%ne30np4_oi%ne30np4_ 
+Pes setting: machine match is compy 
+Pes setting: grid          is a%ne30np4_l%ne30np4_oi%ne30np4_r%null_g%null_w%null_z%null_m%gx1v6 
+Pes setting: compset       is 2000_CAM5%SCREAM-LR_CLM45%SPBC_CICE%PRES_DOCN%DOM_SROF_SGLC_SWAV_SIAC_SESP 
+Pes setting: tasks       is {'NTASKS_ATM': 900, 'NTASKS_ICE': 900, 'NTASKS_CPL': 900, 'NTASKS_LND': 900, 'NTASKS_ROF': 900, 'NTASKS_OCN': 900} 
+Pes setting: threads     is {'NTHRDS_ICE': 1, 'NTHRDS_ATM': 1, 'NTHRDS_ROF': 1, 'NTHRDS_LND': 1, 'NTHRDS_OCN': 1, 'NTHRDS_CPL': 1} 
+Pes setting: rootpe      is {'ROOTPE_OCN': 0, 'ROOTPE_LND': 0, 'ROOTPE_ATM': 0, 'ROOTPE_ICE': 0, 'ROOTPE_CPL': 0, 'ROOTPE_ROF': 0} 
+Pes setting: pstrid      is {} 
+Pes other settings: {}
+Pes comments: ne30_ne30 grid on 23 nodes 40 ppn pure-MPI
+ Compset is: 2000_CAM5%SCREAM-LR_CLM45%SPBC_CICE%PRES_DOCN%DOM_SROF_SGLC_SWAV_SIAC_SESP 
+ Grid is: a%ne30np4_l%ne30np4_oi%ne30np4_r%null_g%null_w%null_z%null_m%gx1v6 
+ Components in compset are: ['cam', 'clm', 'cice', 'docn', 'srof', 'sglc', 'swav', 'siac', 'sesp', 'drv'] 
+No charge_account info available, using value from PROJECT
+
+Directory /compyfs/shpu881/e3sm_scratch/compy_FSCREAM-LR_ne30_SCREAM-forked-github_clen_1600p/bld already exists, (r)eplace, (a)bort, or (u)se existing?

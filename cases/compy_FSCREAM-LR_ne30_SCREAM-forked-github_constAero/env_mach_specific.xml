@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<file id="env_mach_specific.xml" version="2.0">
+  <header>
+    These variables control the machine dependent environment including
+    the paths to compilers and libraries external to cime such as netcdf,
+    environment variables for use in the running job should also be set	here.
+    </header>
+  <group id="compliant_values">
+    <entry id="run_exe" value="${EXEROOT}/e3sm.exe ">
+      <type>char</type>
+      <desc>executable name</desc>
+    </entry>
+    <entry id="run_misc_suffix" value=" &gt;&gt; e3sm.log.$LID 2&gt;&amp;1 ">
+      <type>char</type>
+      <desc>redirect for job output</desc>
+    </entry>
+  </group>
+  <module_system type="module">
+    <init_path lang="perl">/share/apps/modules/init/perl.pm</init_path>
+    <init_path lang="python">/share/apps/modules/init/python.py</init_path>
+    <init_path lang="csh">/etc/profile.d/modules.csh</init_path>
+    <init_path lang="sh">/etc/profile.d/modules.sh</init_path>
+    <cmd_path lang="perl"> /share/apps/modules/bin/modulecmd  perl</cmd_path>
+    <cmd_path lang="python">/share/apps/modules/bin/modulecmd python</cmd_path>
+    <cmd_path lang="sh">module</cmd_path>
+    <cmd_path lang="csh">module</cmd_path>
+    <modules>
+      <command name="purge"/>
+    </modules>
+    <modules>
+      <command name="load">cmake/3.11.4</command>
+    </modules>
+    <modules compiler="intel">
+      <command name="load">intel/19.0.5</command>
+    </modules>
+    <modules compiler="pgi">
+      <command name="load">pgi/19.10</command>
+    </modules>
+    <modules mpilib="mvapich2">
+      <command name="load">mvapich2/2.3.1</command>
+    </modules>
+    <modules compiler="intel" mpilib="impi">
+      <command name="load">intelmpi/2019u4</command>
+    </modules>
+    <modules compiler="pgi" mpilib="impi">
+      <command name="load">intelmpi/2019u3</command>
+    </modules>
+    <modules>
+      <command name="load">netcdf/4.6.3</command>
+      <command name="load">pnetcdf/1.9.0</command>
+      <command name="load">mkl/2019u5</command>
+    </modules>
+  </module_system>
+  <environment_variables>
+    <env name="NETCDF_HOME">$ENV{NETCDF_ROOT}/</env>
+    <env name="MKL_PATH">$ENV{MKLROOT}</env>
+  </environment_variables>
+  <environment_variables mpilib="mvapich2">
+    <env name="MV2_ENABLE_AFFINITY">0</env>
+    <env name="MV2_SHOW_CPU_BINDING">1</env>
+  </environment_variables>
+  <environment_variables mpilib="impi">
+    <env name="I_MPI_ADJUST_ALLREDUCE">1</env>
+  </environment_variables>
+  <environment_variables DEBUG="TRUE" mpilib="impi">
+    <env name="I_MPI_DEBUG">10</env>
+  </environment_variables>
+  <environment_variables SMP_PRESENT="TRUE">
+    <env name="OMP_STACKSIZE">64M</env>
+    <env name="OMP_PLACES">cores</env>
+  </environment_variables>
+  <mpirun mpilib="mpi-serial">
+    <executable/>
+  </mpirun>
+  <mpirun mpilib="mvapich2">
+    <executable>srun</executable>
+    <arguments>
+      <arg name="mpi">--mpi=none</arg>
+      <arg name="num_tasks">--ntasks={{ total_tasks }} --nodes={{ num_nodes }}</arg>
+      <arg name="kill-on-bad-exit">--kill-on-bad-exit</arg>
+      <arg name="cpu_bind">-l --cpu_bind=cores -c $ENV{OMP_NUM_THREADS} -m plane=$SHELL{echo 40/$OMP_NUM_THREADS|bc}</arg>
+    </arguments>
+  </mpirun>
+  <mpirun mpilib="impi">
+    <executable>srun</executable>
+    <arguments>
+      <arg name="mpi">--mpi=pmi2</arg>
+      <arg name="num_tasks">--ntasks={{ total_tasks }} --nodes={{ num_nodes }}</arg>
+      <arg name="kill-on-bad-exit">--kill-on-bad-exit</arg>
+      <arg name="cpu_bind">-l --cpu_bind=cores -c $ENV{OMP_NUM_THREADS} -m plane=$SHELL{echo 40/$OMP_NUM_THREADS|bc}</arg>
+    </arguments>
+  </mpirun>
+</file>
