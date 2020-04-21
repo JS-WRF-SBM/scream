@@ -1,9 +1,0 @@
-&comp_inparm 
-
- dtime = 1800 
- co2vmr = 367.000000e-6
- start_ymd = 00010101 state_debug_checks = .true. 
-
- 
-
-/ 

@@ -360,11 +360,11 @@ contains
 
   !==========================================================================================!
 
-  SUBROUTINE p3_main(qc,nc,qr,nr,th,qv,dt,qitot,qirim,nitot,birim,   &
-       pres,dzq,npccn,naai,it,prt_liq,prt_sol,its,ite,kts,kte,diag_ze,diag_effc,     &
-       diag_effi,diag_vmi,diag_di,diag_rhoi,log_predictNc, &
-       pdel,exner,cmeiout,prain,nevapr,prer_evap,rflx,sflx,rcldm,lcldm,icldm,  &
-       pratot,prctot,p3_tend_out,mu_c,lamc,liq_ice_exchange,vap_liq_exchange, &
+  SUBROUTINE p3_main(qc,nc,qr,nr,th,qv,dt,qitot,qirim,nitot,birim,                      &
+       pres,dzq,npccn,naai,it,prt_liq,prt_sol,its,ite,kts,kte,diag_ze,diag_effc,        &
+       diag_effi,diag_vmi,diag_di,diag_rhoi,log_predictNc,log_qcAuto_LR,                 &
+       pdel,exner,cmeiout,prain,nevapr,prer_evap,rflx,sflx,rcldm,lcldm,icldm,           &
+       pratot,prctot,p3_tend_out,mu_c,lamc,liq_ice_exchange,vap_liq_exchange,           &
        vap_ice_exchange,vap_cld_exchange,col_location)
 
     !----------------------------------------------------------------------------------------!
@@ -419,6 +419,7 @@ contains
     integer, intent(in)                                  :: it         ! time step counter NOTE: starts at 1 for first time step
 
     logical(btype), intent(in)                           :: log_predictNc ! .T. (.F.) for prediction (specification) of Nc
+    logical(btype), intent(in)                           :: log_qcAuto_LR ! .T. (.F.) for tuning autoconversion for Low-Resolution
 
     real(rtype), intent(in),    dimension(its:ite,kts:kte)      :: pdel       ! pressure thickness               Pa
     real(rtype), intent(in),    dimension(its:ite,kts:kte)      :: exner      ! Exner expression
@@ -947,7 +948,7 @@ contains
           ! cloud water autoconversion
           ! NOTE: cloud_water_autoconversion must be called before droplet_self_collection
           call cloud_water_autoconversion(rho(i,k),qc_incld(i,k),nc_incld(i,k),&
-            qcaut,ncautc,ncautr)
+            log_qcAuto_LR,qcaut,ncautc,ncautr)
 
           !............................
           ! self-collection of droplets
@@ -2908,7 +2909,7 @@ end subroutine rain_self_collection
 
 
 subroutine cloud_water_autoconversion(rho,qc_incld,nc_incld,    &
-   qcaut,ncautc,ncautr)
+   log_qcAuto_LR,qcaut,ncautc,ncautr)
 
 #ifdef SCREAM_CONFIG_IS_CMAKE
    use micro_p3_iso_f, only: cloud_water_autoconversion_f, cxx_pow
@@ -2919,6 +2920,7 @@ subroutine cloud_water_autoconversion(rho,qc_incld,nc_incld,    &
    real(rtype), intent(in) :: rho
    real(rtype), intent(in) :: qc_incld
    real(rtype), intent(in) :: nc_incld
+   logical(btype), intent(in) :: log_qcAuto_LR
 
    real(rtype), intent(out) :: qcaut
    real(rtype), intent(out) :: ncautc
@@ -2938,7 +2940,13 @@ subroutine cloud_water_autoconversion(rho,qc_incld,nc_incld,    &
 
       !Khroutdinov and Kogan (2000)
       dum   = qc_incld
-      qcaut = 1350._rtype*bfb_pow(dum,2.47_rtype)*bfb_pow(nc_incld*1.e-6_rtype*rho,-1.79_rtype)
+
+      if(.not. log_qcAuto_LR)then
+        qcaut = 1350._rtype*bfb_pow(dum,2.47_rtype)*bfb_pow(nc_incld*1.e-6_rtype*rho,-1.79_rtype)
+      else
+! +++ JShpund: CMDV-P3 coefficients
+        qcaut = 30500._rtype*bfb_pow(dum,3.19_rtype)*bfb_pow(nc_incld*1.e-6_rtype*rho,-1.20_rtype)
+      endif
       ! note: ncautr is change in Nr; ncautc is change in Ncs
       ncautr = qcaut*cons3
       ncautc = qcaut*nc_incld/qc_incld

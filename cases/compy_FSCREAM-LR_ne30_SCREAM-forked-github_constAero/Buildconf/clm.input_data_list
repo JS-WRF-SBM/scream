@@ -1,8 +1,0 @@
-fsnowaging = /compyfs/inputdata/lnd/clm2/snicardata/snicar_drdt_bst_fit_60_c070416.nc
-fsoilordercon = /compyfs/inputdata/lnd/clm2/paramdata/CNP_parameters_c131108.nc
-fsnowoptics = /compyfs/inputdata/lnd/clm2/snicardata/snicar_optics_5bnd_mam_c160322.nc
-fsurdat = /compyfs/inputdata/lnd/clm2/surfdata_map/surfdata_ne30np4_simyr2000_c190730.nc
-fatmlndfrc = /compyfs/inputdata/share/domains/domain.lnd.ne30np4_gx1v6.110905.nc
-paramfile = /compyfs/inputdata/lnd/clm2/paramdata/clm_params_c180301.nc
-finidat = /compyfs/inputdata/lnd/clm2/initdata_map/clmi.ICLM45BC.ne30_ne30.d0241119c.clm2.r.nc
-stream_fldfilename_lai = /compyfs/inputdata/lnd/clm2/lai_streams/MODISPFTLAI_0.5x0.5_c140711.nc
