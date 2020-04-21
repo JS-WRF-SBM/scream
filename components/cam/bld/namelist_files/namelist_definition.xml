@@ -2173,6 +2173,12 @@ Output microphysics tendencies in standard atm output file.
 Default: TRUE
 </entry>
 
+<entry id="micro_qcAcc_LR" type="logical" category="microphys"
+       group="micro_nl" valid_values="" >
+Output microphysics tendencies in standard atm output file.
+Default: FALSE
+</entry>
+
 
 <!-- micro_mg -->
 <entry id="micro_do_nccons" type="logical" category="microphys"

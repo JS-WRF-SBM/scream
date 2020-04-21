@@ -131,6 +131,7 @@ module micro_p3_interface
    character(len=128) :: micro_p3_lookup_dir     = unset_str ! location of p3 input files
    character(len=16)  :: micro_p3_tableversion   = unset_str ! P3 table version
    logical            :: micro_aerosolactivation = .false.   ! Use aerosol activation
+   logical            :: micro_qcAcc_LR          = .false.   ! Tuned Accretion nl flag
    logical            :: micro_subgrid_cloud     = .false.   ! Use subgrid cloudiness
    logical            :: micro_tend_output       = .false.   ! Default microphysics tendencies to output file
    contains
@@ -149,7 +150,7 @@ subroutine micro_p3_readnl(nlfile)
 
   namelist /micro_nl/ &
        micro_p3_tableversion, micro_p3_lookup_dir, micro_aerosolactivation, micro_subgrid_cloud, &
-       micro_tend_output
+       micro_tend_output, micro_qcAcc_LR
 
   !-----------------------------------------------------------------------------
 
@@ -170,6 +171,7 @@ subroutine micro_p3_readnl(nlfile)
      write(iulog,'(A29,1x,A19)')  'micro_p3_tableversion: ',   micro_p3_tableversion
      write(iulog,'(A20,1x,A100)') 'micro_p3_lookup_dir: ',     micro_p3_lookup_dir
      write(iulog,'(A30,1x,L)')    'micro_aerosolactivation: ', micro_aerosolactivation
+     write(iulog,'(A30,1x,L)')    'micro_qcAcc_LR: ', micro_qcAcc_LR
      write(iulog,'(A30,1x,L)')    'micro_subgrid_cloud: ',     micro_subgrid_cloud
      write(iulog,'(A30,1x,L)')    'micro_tend_output: ',       micro_tend_output
 
@@ -180,6 +182,7 @@ subroutine micro_p3_readnl(nlfile)
   call mpibcast(micro_p3_tableversion,   len(micro_p3_tableversion), mpichar, 0, mpicom)
   call mpibcast(micro_p3_lookup_dir,     len(micro_p3_lookup_dir),   mpichar, 0, mpicom)
   call mpibcast(micro_aerosolactivation, 1,                          mpilog,  0, mpicom)
+  call mpibcast(micro_qcAcc_LR,          1,                          mpilog,  0, mpicom)
   call mpibcast(micro_subgrid_cloud,     1,                          mpilog,  0, mpicom)
   call mpibcast(micro_tend_output,       1,                          mpilog,  0, mpicom)
 
@@ -949,6 +952,7 @@ end subroutine micro_p3_readnl
     integer :: kte                     !near surface level                     -
 
     logical :: log_predictNc           !prognostic droplet concentration or not?
+    logical :: log_qcAcc_LR            !Tunned Accretion for LR
     logical :: do_subgrid_clouds       !use subgrid cloudiness in tendency calculations?
     integer :: col_type ! Flag to store whether accessing grid or sub-columns in pbuf_get_field
     integer :: icol, ncol, k
@@ -1063,6 +1067,9 @@ end subroutine micro_p3_readnl
     ! HANDLE AEROSOL ACTIVATION
     !==============
     log_predictNc = micro_aerosolactivation 
+
+    ! Tunning Accretion for LR
+    log_qcAcc_LR =  micro_qcAcc_LR
 
     ! COMPUTE GEOMETRIC THICKNESS OF GRID & CONVERT T TO POTENTIAL TEMPERATURE
     !==============
@@ -1194,6 +1201,7 @@ end subroutine micro_p3_readnl
          diag_di(its:ite,kts:kte),    & ! OUT    mean diameter of ice             m
          diag_rhoi(its:ite,kts:kte),  & ! OUT    bulk density of ice              kg m-3
          log_predictNc,               & ! IN     .true.=prognostic Nc, .false.=specified Nc
+         log_qcAcc_LR,                & ! IN     .true.=tuned Accretion
          ! AaronDonahue new stuff
          state%pdel(its:ite,kts:kte), & ! IN pressure level thickness for computing total mass
          exner(its:ite,kts:kte),      & ! IN exner values

@@ -362,7 +362,7 @@ contains
 
   SUBROUTINE p3_main(qc,nc,qr,nr,th,qv,dt,qitot,qirim,nitot,birim,   &
        pres,dzq,npccn,naai,it,prt_liq,prt_sol,its,ite,kts,kte,diag_ze,diag_effc,     &
-       diag_effi,diag_vmi,diag_di,diag_rhoi,log_predictNc, &
+       diag_effi,diag_vmi,diag_di,diag_rhoi,log_predictNc,log_qcAcc_LR, &
        pdel,exner,cmeiout,prain,nevapr,prer_evap,rflx,sflx,rcldm,lcldm,icldm,  &
        pratot,prctot,p3_tend_out,mu_c,lamc,liq_ice_exchange,vap_liq_exchange, &
        vap_ice_exchange,vap_cld_exchange,col_location)
@@ -419,6 +419,7 @@ contains
     integer, intent(in)                                  :: it         ! time step counter NOTE: starts at 1 for first time step
 
     logical(btype), intent(in)                           :: log_predictNc ! .T. (.F.) for prediction (specification) of Nc
+    logical(btype), intent(in)                           :: log_qcAcc_LR  ! .T. (.F.) for tunning Accression for LR
 
     real(rtype), intent(in),    dimension(its:ite,kts:kte)      :: pdel       ! pressure thickness               Pa
     real(rtype), intent(in),    dimension(its:ite,kts:kte)      :: exner      ! Exner expression
@@ -957,7 +958,7 @@ contains
           !............................
           ! accretion of cloud by rain
           call cloud_rain_accretion(rho(i,k),inv_rho(i,k),&
-            qc_incld(i,k),nc_incld(i,k), qr_incld(i,k),&
+            qc_incld(i,k),nc_incld(i,k), qr_incld(i,k), log_qcAcc_LR,&
             qcacc, ncacc)
 
           !.....................................
@@ -2802,7 +2803,7 @@ subroutine droplet_self_collection(rho,inv_rho,qc_incld,mu_c,nu,ncautc,    &
 end subroutine droplet_self_collection
 
 subroutine cloud_rain_accretion(rho,inv_rho,qc_incld,nc_incld,qr_incld,    &
-   qcacc,ncacc)
+   log_qcAcc_LR,qcacc,ncacc)
 
 #ifdef SCREAM_CONFIG_IS_CMAKE
    use micro_p3_iso_f, only: cloud_rain_accretion_f, cxx_pow
@@ -2818,11 +2819,11 @@ real(rtype), intent(in) :: inv_rho
 real(rtype), intent(in) :: qc_incld
 real(rtype), intent(in) :: nc_incld
 real(rtype), intent(in) :: qr_incld
-
+logical(btype), intent(in)  :: log_qcAcc_LR
 real(rtype), intent(out) :: qcacc
 real(rtype), intent(out) :: ncacc
 
-real(rtype) :: dum, dum1
+real(rtype) :: dum, dum1, coef0
 
 #ifdef SCREAM_CONFIG_IS_CMAKE
    if (use_cxx) then
@@ -2847,7 +2848,13 @@ if (qr_incld.ge.qsmall .and. qc_incld.ge.qsmall) then
            1.e+6_rtype*inv_rho
    elseif (iparam.eq.3) then
       !Khroutdinov and Kogan (2000)
-      qcacc = 67._rtype*bfb_pow(qc_incld*qr_incld,1.15_rtype)
+      if(.not. log_qcAcc_LR) then
+        qcacc = 67._rtype*bfb_pow(qc_incld*qr_incld,1.15_rtype)
+      else
+! +++ JShpund: CMDV-P3 tuned accretion
+        coef0 = 1.5_rtype
+        qcacc = coef0*67._rtype*bfb_pow(qc_incld*qr_incld,1.15_rtype)
+      endif
       ncacc = qcacc*nc_incld/qc_incld
    endif
 
