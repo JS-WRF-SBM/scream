@@ -651,9 +651,14 @@ contains
           dum          = 1.496e-6_rtype*t(i,k)**1.5_rtype/(t(i,k)+120._rtype)  ! this is mu
           acn(i,k)     = g*rhow/(18._rtype*dum)  ! 'a' parameter for droplet fallspeed (Stokes' law)
 
-          !specify cloud droplet number (for 1-moment version)
-          if (.not.(log_predictNc)) then
+! +++ JShpund: Personally, do not understand why need mass condition on activation
+!              Unless is involves with sporious nucleation and/or constraints from SHOC
+
+          !Activation of cloud droplets OR specify cloud droplet number (for 1-moment version)
+          if (.not.(log_predictNc) .and. qc(i,k) > qsmall) then
              nc(i,k) = nccnst*inv_rho(i,k)
+          else
+             nc(i,k) = nc(i,k) + npccn(i,k) * dt
           endif
 
           if ((t(i,k).lt.zerodegc .and. supi(i,k).ge.-0.05_rtype) .or.                              &
@@ -703,12 +708,6 @@ contains
           endif
 
           t(i,k) = th(i,k) * inv_exner(i,k)
-
-
-         !Activaiton of cloud droplets
-          if (log_predictNc) then
-             nc(i,k) = nc(i,k) + npccn(i,k) * dt
-          endif
 
           call calculate_incloud_mixingratios(qc(i,k),qr(i,k),qitot(i,k),qirim(i,k),nc(i,k),nr(i,k),nitot(i,k),birim(i,k), &
                   inv_lcldm(i,k),inv_icldm(i,k),inv_rcldm(i,k), &
@@ -940,7 +939,7 @@ contains
           !.................................................................
           ! droplet activation
           call droplet_activation(t(i,k),pres(i,k),qv(i,k),qc(i,k),inv_rho(i,k),&
-             sup(i,k),xxlv(i,k),npccn(i,k),log_predictNc,odt,&
+             sup(i,k),xxlv(i,k),npccn(i,k),log_predictNc,odt,inv_lcldm(i,k),&
              qcnuc,ncnuc)
 
           !................
@@ -2708,7 +2707,7 @@ subroutine ice_nucleation(t,inv_rho,nitot,naai,supi,odt,log_predictNc,    &
 end subroutine
 
 
-subroutine droplet_activation(t,pres,qv,qc,inv_rho,sup,xxlv,npccn,log_predictNc,odt,    &
+subroutine droplet_activation(t,pres,qv,qc,inv_rho,sup,xxlv,npccn,log_predictNc,odt,inv_lcldm,    &
    qcnuc,ncnuc)
 
 
@@ -2725,6 +2724,7 @@ real(rtype), intent(in) :: npccn
 
 logical(btype), intent(in) :: log_predictNc
 real(rtype), intent(in)  :: odt
+real(rtype), intent(in)  :: inv_lcldm
 
 real(rtype), intent(inout) :: qcnuc
 real(rtype), intent(inout) :: ncnuc
@@ -2737,21 +2737,14 @@ real(rtype) :: dum, dumqvs, dqsdt, ab
    if (log_predictNc) then
       ! for predicted Nc, use activation predicted by aerosol scheme
       ! note that this is also applied at the first time step
-      if (sup.gt.1.e-6) then
-         ncnuc = npccn
-         !TODO Limit qcnuc so that conditions never become sub-saturated
-         qcnuc = ncnuc*cons7
+      if (qc.gt.qsmall) then
+! +++ JShpund: Here 'npccn' was a grid-mean, but 'ncnuc' is assumed to be in-cloud >> corrected
+!              Also, corrected the IF condition to be consistent with the nucleation at the begin. of the scheme
+         ncnuc = npccn*inv_lcldm
+! +++ JShpund: 'qcnuc' was erased; no added mass during activation (following PMC comment)
       endif
    else if (sup.gt.1.e-6) then
-     ! for specified Nc, make sure droplets are present if conditions are supersaturated
-     ! this is not applied at the first time step, since saturation adjustment is applied at the first step
-      dum   = nccnst*inv_rho*cons7-qc
-      dum   = max(0._rtype,dum)
-      dumqvs = qv_sat(t,pres,0)
-      dqsdt = xxlv*dumqvs/(rv*t*t)
-      ab    = 1._rtype + dqsdt*xxlv*inv_cp
-      dum   = min(dum,(qv-dumqvs)/ab)  ! limit overdepletion of supersaturation
-      qcnuc = dum*odt
+! +++ JShpund: 'qcnuc' was erased; no added mass during activtion even for fiexd drop conc.
    endif
 
 end subroutine droplet_activation
