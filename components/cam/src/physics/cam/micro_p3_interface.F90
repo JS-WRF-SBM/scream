@@ -904,7 +904,7 @@ end subroutine micro_p3_readnl
     real(rtype), pointer :: lambdac(:,:)      ! Size distribution slope parameter for radiation
     ! DONE PBUF
     ! For recording inputs/outputs to p3_main
-    real(rtype) :: p3_main_inputs(pcols,pver+1,16) ! Record of inputs for p3_main
+    real(rtype) :: p3_main_inputs(pcols,pver+1,17) ! Record of inputs for p3_main
     real(rtype) :: p3_main_outputs(pcols,pver+1,32) ! Record of outputs for p3_main
 
     ! Derived Variables
@@ -1006,7 +1006,7 @@ end subroutine micro_p3_readnl
     !call pbuf_get_field(pbuf,       icswp_idx,     icswp,    col_type=col_type) 
     !call pbuf_get_field(pbuf,    cldfsnow_idx,  cldfsnow,    col_type=col_type) 
     ! INPUTS
-    call pbuf_get_field(pbuf, relvar_idx,      relvar,      col_type=col_type, copy_if_needed=use_subcol_microp) ! Not used in this ver of P3
+    call pbuf_get_field(pbuf, relvar_idx,      relvar,      col_type=col_type, copy_if_needed=use_subcol_microp)
     call pbuf_get_field(pbuf, accre_enhan_idx, accre_enhan, col_type=col_type, copy_if_needed=use_subcol_microp) ! Not used in this ver of P3
     ! OUTPUTS
     call pbuf_get_field(pbuf,        cldo_idx,      cldo,     start=(/1,1,itim_old/), kount=(/psetcols,pver,1/), col_type=col_type)
@@ -1157,6 +1157,7 @@ end subroutine micro_p3_readnl
       p3_main_inputs(1,k,14) = qirim(1,k)
       p3_main_inputs(1,k,15) = rimvol(1,k)
       p3_main_inputs(1,k,16) = state%pdel(1,k)
+      p3_main_inputs(1,k,17)  = relvar(1,k)
     end do
     p3_main_inputs(1,pver+1,5) = state%zi(1,pver+1)
 
@@ -1215,7 +1216,8 @@ end subroutine micro_p3_readnl
          vap_liq_exchange(its:ite,kts:kte),& ! OUT sun of vap-liq phase change tendencies
          vap_ice_exchange(its:ite,kts:kte),& ! OUT sum of vap-ice phase change tendencies
          vap_cld_exchange(its:ite,kts:kte),& ! OUT sum of vap-cld phase change tendencies
-         col_location(its:ite,:3)          & ! IN column locations 
+         col_location(its:ite,:3),         & ! IN column locations
+         relvar(its:ite,kts:kte)           & ! IN cloud liquid relative variance from SHOC [-]
          )
 
     p3_main_outputs(:,:,:) = -999._rtype

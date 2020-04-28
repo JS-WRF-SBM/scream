@@ -171,7 +171,7 @@ subroutine shoc_main ( &
      w_sec, thl_sec, qw_sec, qwthl_sec,&  ! Output (diagnostic)
      wthl_sec, wqw_sec, wtke_sec,&        ! Output (diagnostic)
      uw_sec, vw_sec, w3,&                 ! Output (diagnostic)    
-     wqls_sec, brunt)                     ! Output (diagnostic)
+     wqls_sec, brunt, shoc_ql2)           ! Output (diagnostic)
 
   implicit none
   
@@ -250,7 +250,9 @@ subroutine shoc_main ( &
   ! Cloud fraction [-]
   real(r8), intent(out) :: shoc_cldfrac(shcol,nlev)
   ! cloud liquid mixing ratio [kg/kg] 
-  real(r8), intent(out) :: shoc_ql(shcol,nlev) 
+  real(r8), intent(out) :: shoc_ql(shcol,nlev)
+  ! cloud liquid mixing ratio variance [kg/kg]
+  real(r8), intent(out) :: shoc_ql2(shcol, nlev)
   ! planetary boundary layer depth [m]
   real(r8), intent(out) :: pblh(shcol)
   
@@ -412,13 +414,13 @@ subroutine shoc_main ( &
 	 
     ! Call the PDF to close on SGS cloud and turbulence
     call shoc_assumed_pdf(&
-           shcol,nlev,nlevi,&                   ! Input
-           thetal,qw,w_field,thl_sec,qw_sec,&   ! Input
-	   wthl_sec,w_sec,&                     ! Input
-	   wqw_sec,qwthl_sec,w3,pres,&          ! Input
-	   zt_grid,zi_grid,&                    ! Input
-	   shoc_cldfrac,shoc_ql,&               ! Output
-           wqls_sec,wthv_sec)                   ! Output
+            shcol,nlev,nlevi,&                   ! Input
+            thetal,qw,w_field,thl_sec,qw_sec,&   ! Input
+            wthl_sec,w_sec,&                     ! Input
+            wqw_sec,qwthl_sec,w3,pres,&          ! Input
+            zt_grid,zi_grid,&                    ! Input
+            shoc_cldfrac,shoc_ql,&               ! Output
+            wqls_sec,wthv_sec,shoc_ql2)          ! Output
 
     ! Check TKE to make sure values lie within acceptable 
     !  bounds after vertical advection, etc.
@@ -1212,13 +1214,13 @@ end subroutine diag_third_shoc_moments
 ! Assumed PDF closure for the SHOC scheme
 
 subroutine shoc_assumed_pdf(&
-             shcol,nlev,nlevi, &                ! Input
-             thetal,qw,w_field,thl_sec,qw_sec,& ! Input
-	     wthl_sec,w_sec, &                  ! Input
-	     wqw_sec,qwthl_sec,w3,pres, &       ! Input
-	     zt_grid,zi_grid,&                  ! Input
-	     shoc_cldfrac,shoc_ql,&             ! Output
-             wqls,wthv_sec)                     ! Output
+                shcol,nlev,nlevi, &                ! Input
+                thetal,qw,w_field,thl_sec,qw_sec,& ! Input
+                wthl_sec,w_sec, &                  ! Input
+                wqw_sec,qwthl_sec,w3,pres, &       ! Input
+                zt_grid,zi_grid,&                  ! Input
+                shoc_cldfrac,shoc_ql,&             ! Output
+                wqls,wthv_sec,shoc_ql2)            ! Output
 
   ! Purpose of this subroutine is calculate the 
   !  double Gaussian PDF of SHOC, which is the centerpiece
@@ -1274,6 +1276,8 @@ subroutine shoc_assumed_pdf(&
   real(r8), intent(out) :: wthv_sec(shcol,nlev) 
   ! SGS liquid water flux [kg/kg m/s]
   real(r8), intent(out) :: wqls(shcol,nlev)
+  ! SGS liquid water mixing ratio variance [kg/kg]
+  real(r8), intent(out) :: shoc_ql2(shcol,nlev)
 
 ! LOCAL VARIABLES
   integer i,j,k,dothis,nmicro_fields
@@ -1323,6 +1327,7 @@ subroutine shoc_assumed_pdf(&
   ! Initialize cloud variables to zero  
   shoc_cldfrac(:,:)=0._r8
   shoc_ql(:,1)=0._r8 
+  shoc_ql2(:,:) = 0._r8
 
   ! Interpolate many variables from interface grid to themo grid
   call linear_interp(zi_grid,zt_grid,w3,w3_zt,nlevi,nlev,shcol,largeneg)  
@@ -1596,6 +1601,12 @@ subroutine shoc_assumed_pdf(&
       ! Compute SGS liquid water mixing ratio
       shoc_ql(i,k) = max(0._r8,a*ql1+(1._r8-a)*ql2)
       
+! +++ JShpund: Adding cloud liquid variance (CLUBB formulation, adjusted to SHOC parameters based on Peter B.)
+!              * Please double check this *
+      shoc_ql2(i,k) = a * ( s1*ql1 + C1*std_s1**2.0 )                  &
+                + ( 1._r8-a ) * ( s2*ql2 + C2*std_s2**2.0 ) - shoc_ql(i,k)**2.0
+      shoc_ql2(i,k) = max( 0._r8, shoc_ql2(i,k) )
+
       ! Compute liquid water flux
       wqls(i,k)=a*((w1_1-w_first)*ql1)+(1._r8-a)*((w1_2-w_first)*ql2)
       ! Compute the SGS buoyancy flux

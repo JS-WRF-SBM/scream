@@ -366,6 +366,7 @@ end function shoc_implements_cnst
     call addfld('ISOTROPY',(/'lev'/),'A', 's', 'timescale')
     call addfld('CONCLD',(/'lev'/),  'A',        'fraction', 'Convective cloud cover')
     call addfld('BRUNT',(/'lev'/), 'A', 's-1', 'Brunt frequency')
+    call addfld('RELVAR',(/'lev'/), 'A', 'kg/kg', 'SHOC cloud liquid relative variance')
 
     call add_default('SHOC_TKE', 1, ' ')
     call add_default('WTHV_SEC', 1, ' ')
@@ -386,6 +387,7 @@ end function shoc_implements_cnst
     call add_default('ISOTROPY',1,' ')
     call add_default('CONCLD',1,' ')
     call add_default('BRUNT',1,' ')
+    call add_default('RELVAR',1,' ')
     ! ---------------------------------------------------------------!
     ! Initialize SHOC                                                !
     ! ---------------------------------------------------------------!
@@ -510,6 +512,7 @@ end function shoc_implements_cnst
    real(r8) :: rvm(pcols,pver)
    real(r8) :: rtm(pcols,pver)
    real(r8) :: rcm(pcols,pver)
+   real(r8) :: rcm2(pcols,pver)                 ! cloud liquid variance                         [kg/kg]
    real(r8) :: ksrftms(pcols)                   ! Turbulent mountain stress surface drag        [kg/s/m2]
    real(r8) :: tautmsx(pcols)                   ! U component of turbulent mountain stress      [N/m2]
    real(r8) :: tautmsy(pcols)                   ! V component of turbulent mountain stress      [N/m2]
@@ -574,15 +577,16 @@ end function shoc_implements_cnst
    real(r8), pointer, dimension(:,:) :: shalcu   ! shallow convection cloud fraction            [fraction]    
    real(r8), pointer, dimension(:,:) :: khzt     ! eddy diffusivity on thermo levels            [m^2/s]
    real(r8), pointer, dimension(:,:) :: khzm     ! eddy diffusivity on momentum levels          [m^2/s]
-   real(r8), pointer, dimension(:) :: pblh     ! planetary boundary layer height                [m]
+   real(r8), pointer, dimension(:)   :: pblh     ! planetary boundary layer height                [m]
    real(r8), pointer, dimension(:,:) :: dp_icwmr ! deep convection in cloud mixing ratio        [kg/kg] 
    real(r8), pointer, dimension(:,:) :: cmfmc_sh ! Shallow convective mass flux--m subc (pcols,pverp) [kg/m2/s/]     
 
    real(r8), pointer, dimension(:,:) :: prer_evap 
    real(r8), pointer, dimension(:,:) :: accre_enhan
-   real(r8), pointer, dimension(:,:) :: relvar
+   real(r8), pointer, dimension(:,:) :: relvar   ! relative cloud water variance                [-]
    
    logical :: lqice(pcnst)   
+   real(r8) :: relvarmax
    
    !------------------------------------------------------------------!
    !------------------------------------------------------------------!
@@ -778,21 +782,21 @@ end function shoc_implements_cnst
    ! ------------------------------------------------- !   
 
    call shoc_main( &
-        ncol, pver, pverp, dtime, nadv, & ! Input
-	host_dx_in(:ncol), host_dy_in(:ncol), thv(:ncol,:),& ! Input
-        zt_g(:ncol,:), zi_g(:ncol,:), state%pmid(:ncol,:pver), state%pint(:ncol,:pverp), state1%pdel(:ncol,:pver),& ! Input
-	wpthlp_sfc(:ncol), wprtp_sfc(:ncol), upwp_sfc(:ncol), vpwp_sfc(:ncol), & ! Input
-	wtracer_sfc(:ncol,:), edsclr_dim, wm_zt(:ncol,:), & ! Input
-	exner(:ncol,:),state1%phis(:ncol), & ! Input
-	shoc_s(:ncol,:), tke(:ncol,:), thlm(:ncol,:), rtm(:ncol,:), & ! Input/Ouput
-	um(:ncol,:), vm(:ncol,:), edsclr_in(:ncol,:,:), & ! Input/Output
-	wthv(:ncol,:),tkh(:ncol,:),tk(:ncol,:), rcm(:ncol,:), & ! Input/Output
-        cloud_frac(:ncol,:), pblh(:ncol), & ! Output
-        shoc_mix_out(:ncol,:), isotropy_out(:ncol,:), & ! Output (diagnostic)
-        w_sec_out(:ncol,:), thl_sec_out(:ncol,:), qw_sec_out(:ncol,:), qwthl_sec_out(:ncol,:), & ! Output (diagnostic)   
-        wthl_sec_out(:ncol,:), wqw_sec_out(:ncol,:), wtke_sec_out(:ncol,:), & ! Output (diagnostic)
-        uw_sec_out(:ncol,:), vw_sec_out(:ncol,:), w3_out(:ncol,:), & ! Output (diagnostic)
-        wqls_out(:ncol,:),brunt_out(:ncol,:)) ! Output (diagnostic)
+            ncol, pver, pverp, dtime, nadv, & ! Input
+            host_dx_in(:ncol), host_dy_in(:ncol), thv(:ncol,:),& ! Input
+            zt_g(:ncol,:), zi_g(:ncol,:), state%pmid(:ncol,:pver), state%pint(:ncol,:pverp), state1%pdel(:ncol,:pver),& ! Input
+            wpthlp_sfc(:ncol), wprtp_sfc(:ncol), upwp_sfc(:ncol), vpwp_sfc(:ncol), & ! Input
+            wtracer_sfc(:ncol,:), edsclr_dim, wm_zt(:ncol,:), & ! Input
+            exner(:ncol,:),state1%phis(:ncol), & ! Input
+            shoc_s(:ncol,:), tke(:ncol,:), thlm(:ncol,:), rtm(:ncol,:), & ! Input/Ouput
+            um(:ncol,:), vm(:ncol,:), edsclr_in(:ncol,:,:), & ! Input/Output
+            wthv(:ncol,:),tkh(:ncol,:),tk(:ncol,:), rcm(:ncol,:), & ! Input/Output
+            cloud_frac(:ncol,:), pblh(:ncol), & ! Output
+            shoc_mix_out(:ncol,:), isotropy_out(:ncol,:), & ! Output (diagnostic)
+            w_sec_out(:ncol,:), thl_sec_out(:ncol,:), qw_sec_out(:ncol,:), qwthl_sec_out(:ncol,:), & ! Output (diagnostic)
+            wthl_sec_out(:ncol,:), wqw_sec_out(:ncol,:), wtke_sec_out(:ncol,:), & ! Output (diagnostic)
+            uw_sec_out(:ncol,:), vw_sec_out(:ncol,:), w3_out(:ncol,:), & ! Output (diagnostic)
+            wqls_out(:ncol,:),brunt_out(:ncol,:), rcm2(:ncol,:)) ! Output (diagnostic)
    
    ! Transfer back to pbuf variables
    
@@ -915,7 +919,13 @@ end function shoc_implements_cnst
     ! For purposes of this implementaiton, just set relvar and accre_enhan to 1
     relvar(:,:) = 1.0_r8   
     accre_enhan(:,:) = 1._r8  
+
+! +++ JShpund: add relative cloud liquid variance (a vectorized version based on CLUBB)
+    relvarmax = 10.0_r8
+    where (rcm(:ncol,:pver) /= 0.0 .and. rcm2(:ncol,:pver) /= 0.0) &
+           relvar(:ncol,:pver) = min(relvarmax,max(0.001_r8,rcm(:ncol,:pver)**2.0/rcm2(:ncol,:pver)))
    
+
     ! --------------------------------------------------------------------------------- ! 
     !  Diagnose some quantities that are computed in macrop_tend here.                  !
     !  These are inputs required for the microphysics calculation.                      !
@@ -938,6 +948,7 @@ end function shoc_implements_cnst
         qlst(i,k) = rcm(i,k)/max(0.01_r8,alst(i,k))  ! Incloud stratus condensate mixing ratio
       enddo
     enddo
+
 
     ! HW
     if(liqcf_fix) then
@@ -1052,6 +1063,7 @@ end function shoc_implements_cnst
     call outfld('ISOTROPY',isotropy_out, pcols,lchnk)
     call outfld('CONCLD',concld,pcols,lchnk)
     call outfld('BRUNT',brunt_out,pcols,lchnk)
+    call outfld('RELVAR',relvar,pcols,lchnk)
 
 #endif    
     return         
